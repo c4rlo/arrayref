@@ -53,7 +53,7 @@ int main()
 
     cout << "An empty ArrayRef has a size() of " << ArrayRef<bool>().size()
         << ".\n";
-    ArrayRef<vector<int> > emptyRef;
+    const ArrayRef<vector<int> > emptyRef;
     cout << "Is it empty? " << boolalpha << emptyRef.empty() << "\n";
 
     ArrayRef<int> vecRef(vec);

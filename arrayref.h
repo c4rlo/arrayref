@@ -21,8 +21,6 @@ public:
 
     inline ArrayRef(std::vector<T>& vec);
 
-    inline ArrayRef& operator = (const ArrayRef& other);
-
     typedef T* iterator;
     typedef const T* const_iterator;
     typedef std::reverse_iterator<T*> reverse_iterator;
@@ -51,6 +49,10 @@ public:
 
     inline T& at(size_t index);
     inline const T& at(size_t index) const;
+
+private:
+    // NOT IMPLEMENTED
+    inline ArrayRef& operator = (const ArrayRef& other);
 
 private:
     T *const d_begin;
@@ -112,14 +114,6 @@ ArrayRef<T>::ArrayRef(T* begin, T* end)
 : d_begin(begin),
   d_end(end)
 {
-}
-
-template<class T>
-ArrayRef<T>&
-ArrayRef<T>::operator = (const ArrayRef& other)
-{
-    d_begin = other.d_begin;
-    d_end = other.d_end;
 }
 
 template<class T>
