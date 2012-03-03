@@ -9,18 +9,14 @@ In C, if you want to pass an array (or array slice) by reference to a function, 
 double average(const double* ptr, size_t count);
 ```
 
-In the C++ Standard Library, the equivalent idiom is to pass a begin
-iterator and an end iterator:
+In the C++ Standard Library, the equivalent idiom is to pass a begin iterator and an end iterator:
 
 ```C++
 template<class Iter>
 double average(Iter begin, Iter end);
 ```
 
-The problem emerges: since there is no single iterator, this has to be a
-template. This is how the functions in the `<algorithm>` standard include
-header operator. (For these, it generally makes sense, since they want to be
-templates anyway.)
+The problem emerges: since there is no single iterator, this has to be a template. This is how the functions in the `<algorithm>` standard include header operate. (For these, it makes sense, since they want to be templates anyway.)
 
 So we could go for this instead:
 
@@ -31,10 +27,13 @@ double average(const double* begin, const* double end);
 This will certainly do the job, and in this case would be appropriate. But what if your function looks like this:
 
 ```C++
-void cross_product(const double* vec1_begin, const double* vec1_end, const double* vec2_begin, const double* vec2_end, double* result_begin, double* result_end);
+void cross_product(
+    const double* vec1_begin, const double* vec1_end,
+    const double* vec2_begin, const double* vec2_end,
+    double* result_begin, double* result_end);
 ```
 
-Clearly, having to have two parameters for each array (slice) reference every time often becomes annoying. This is where `ArrayRef<T>` comes in:
+Clearly, having to have two parameters for each array (slice) reference every time can become tedious. This is where `class ArrayRef<T>` comes in:
 
 ```C++
 void cross_product(ArrayRef<const double>& vec1, ArrayRef<const double>& vec2, ArrayRef<double>& result);
@@ -52,4 +51,4 @@ cross_product(a, b, xprod);
 
 ### Documentation
 
-Since this class is really quite trivial, a look at the source code should be sufficient. In summary, it exposes an interface much like a std::vector.
+Since this class is really quite trivial, a look at the source code should be sufficient. In summary, it exposes an interface much like a `std::vector`.
