@@ -1,9 +1,9 @@
 # arrayref
-## A C++ class that wraps an array (or std::vector)
+## A C++ class that wraps an array
 
 ### Motivation
 
-In C, if you want to pass an array (or array slice) by reference to a function, this is generally done by passing a pointer to the beginning of the array along with a size:
+In C, if you want to pass an array by reference to a function, this is generally done by passing a pointer to the beginning of the array along with a size:
 
 ```C
 double average(const double* ptr, size_t count);
@@ -33,7 +33,7 @@ void cross_product(
     double* result_begin, double* result_end);
 ```
 
-Clearly, having to have two parameters for each array (slice) reference every time can become tedious. This is where `class ArrayRef<T>` comes in:
+Clearly, having to have two parameters for each array reference every time can become tedious. This is where `class ArrayRef<T>` comes in:
 
 ```C++
 void cross_product(ArrayRef<const double>& vec1, ArrayRef<const double>& vec2, ArrayRef<double>& result);
@@ -48,6 +48,15 @@ std::vector<double> xprod;
 xprod.resize(3);
 cross_product(a, b, xprod);
 ```
+
+### Const-ness
+
+One thing to watch out for is `ArrayRef`'s behaviour with respect to `const`ness. If you want a reference to a `const` array, you need to construct an `ArrayRef<const T>`, where `T` is your type; do not be tempted to think that `const ArrayRef<T>` is enough. In fact, whether or not the `ArrayRef<T>` object itself is `const` or not is of no real importance. Think of it this way:
+
+* `ArrayRef<const T>` *is like* `const T*` (sometimes written `T const *`)
+* `const ArrayRef<T>` *is like* `T *const`
+
+Accordingly, all member functions of `ArrayRef<T>` are declared `const`.
 
 ### Documentation
 

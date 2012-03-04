@@ -1,0 +1,11 @@
+#!/bin/bash
+for i in {1..5}; do
+    echo "Error test $i"
+    g++ -DERRTEST=$i test.cpp 2>/dev/null
+    if [[ $? == 0 ]]; then
+        echo "Fail, it worked!" >&2
+        exit 1
+    fi
+done
+
+echo Success
