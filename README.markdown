@@ -51,13 +51,13 @@ cross_product(a, b, xprod);
 
 ### Const-ness
 
-One thing to watch out for is `ArrayRef`'s behaviour with respect to `const`ness. If you want a reference to a `const` array, you need to construct an `ArrayRef<const T>`, where `T` is your type; do not be tempted to think that `const ArrayRef<T>` is enough. In fact, whether or not the `ArrayRef<T>` object itself is `const` or not is of no real importance. Think of it this way:
+One thing to watch out for is `ArrayRef`'s behaviour with respect to `const`-ness. If you want a reference to a `const` array, you need to construct an `ArrayRef<const T>`, where `T` is your type; do not be tempted to think that `const ArrayRef<T>` is enough. In fact, whether or not the `ArrayRef<T>` object itself is `const` or not is of no real importance. Think of it this way:
 
 * `ArrayRef<const T>` *is like* `const T*` (sometimes written `T const *`)
 * `const ArrayRef<T>` *is like* `T *const`
 
 Accordingly, all member functions of `ArrayRef<T>` are declared `const`.
 
-### Documentation
+### Full documentation
 
-Since this class is really quite trivial, a look at the source code should be sufficient. In summary, it exposes an interface much like a `std::vector`.
+Since this class is really quite trivial, a look at the source code should be sufficient. In summary, it exposes an interface somewhat like a `std::vector`.

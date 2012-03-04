@@ -3,6 +3,7 @@
 #include <vector>
 #include <iostream>
 #include <iomanip>
+#include <utility>
 
 using namespace std;
 
@@ -91,6 +92,14 @@ int main()
 
     cout << "ary has " << makeArrayRef(ary).size() << " elements.\n";
     cout << "vec has " << makeArrayRef(vec).size() << " elements.\n";
+
+    cout << "ary == vec? " << (makeArrayRef(ary) == makeArrayRef(vec)) << "\n";
+    cout << "ary < vec? " << (makeArrayRef(ary) < makeArrayRef(vec)) << "\n";
+    cout << "vec < ary? " << (makeArrayRef(vec) < makeArrayRef(ary)) << "\n";
+
+    using namespace rel_ops;
+
+    cout << "ary != vec? " << (makeArrayRef(ary) != makeArrayRef(vec)) << "\n";
 
 #if ERRTEST == 1
     printArrayNonconst(constAry);

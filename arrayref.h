@@ -4,6 +4,7 @@
 #include <vector>
 #include <stdexcept>
 #include <iterator>
+#include <algorithm>
 
 template<class T>
 class ArrayRef
@@ -202,6 +203,22 @@ ArrayRef<T>::at(size_t index) const
     else {
         throw std::out_of_range("ArrayRef<...>::at(): index out of range");
     }
+}
+
+template<class T>
+bool
+operator == (const ArrayRef<T>& ref1, const ArrayRef<T>& ref2)
+{
+    return ref1.size() == ref2.size() &&
+           std::equal(ref1.begin(), ref1.end(), ref2.begin());
+}
+
+template<class T>
+bool
+operator < (const ArrayRef<T>& ref1, const ArrayRef<T>& ref2)
+{
+    return std::lexicographical_compare(
+            ref1.begin(), ref1.end(), ref2.begin(), ref2.end());
 }
 
 #endif /* INCLUDED_ARRAYREF */
